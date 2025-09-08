@@ -30,24 +30,32 @@ import java.util.Scanner;
 public class PA1 {
 
     public static void main(String[] args) {
+
+        String userString = getLine();
+
+        // Character Count
+        int userStringLength = userString.length();
+        System.out.println("Character Count: " + userStringLength);
+
+        // Word count
+        String[] userArray = userString.split(" ");
+        int wordCount = userArray.length;
+        System.out.println("Word Count: " + wordCount);
+
+        // Most Common Character
+        // Character Frequency
+        // Word Frequency
+        // Unique Words
+    }
+
+    public static String getLine() {
         Scanner stdin = new Scanner(System.in);
         String userInput;
 
         System.out.println("Please input a paragraph or a lengthy text");
         userInput = stdin.nextLine();
-        //System.out.println(userInput);
 
         stdin.close();
-
-        // Character Count
-        int userInputLength = userInput.length();
-        System.out.println("Character Count: "+ userInputLength);
-
-        // Word count
-        // Most Common Character
-        // Character Frequency
-        // Word Frequency
-        // Unique Words
-
+        return userInput;
     }
 }
