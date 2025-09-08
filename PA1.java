@@ -58,4 +58,17 @@ public class PA1 {
         stdin.close();
         return userInput;
     }
+
+    public static int characterCount(String userString) {
+        int userStringLength = userString.length();
+        System.out.println("Character Count: " + userStringLength);
+        return userStringLength;
+    }
+
+    public static int wordCount(String userString) {
+        String[] userArray = userString.split(" ");
+        int wordCount = userArray.length;
+        System.out.println("Word Count: " + wordCount);
+        return wordCount;
+    }
 }
