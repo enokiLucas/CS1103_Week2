@@ -23,18 +23,19 @@
  */
 
 import java.util.Scanner;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.Map;
 
 /**
- *
+ * ToDo: split whitespace using "\s+"
  */
 public class PA1 {
 
     public static void main(String[] args) {
-
-        String userString = getLine();
+        Scanner stdin = new Scanner(System.in);
+        String userString = getLine(stdin);
 
         // Character Count
         //characterCount(userString);
@@ -43,20 +44,32 @@ public class PA1 {
         //wordCount(userString);
 
         // Most Common Character
-        mostCommonCharacter(userString);
+        //HashMap<Character, Integer> userHashMap = makeHashMap(userString);
+        //mostCommonCharacter(userHashMap);
+
         // Character Frequency
+        //String userStringUpper = userString.toUpperCase();
+        //HashMap<Character, Integer> userHashMapUpper = makeHashMap(userStringUpper);
+        //characterFrequency(userHashMapUpper, stdin);
+
         // Word Frequency
+        //wordFrequency(userStringUpper, stdin);
+
+
         // Unique Words
-    }
+        numberOfUniqueWords(userString);
 
-    public static String getLine() {
-        Scanner stdin = new Scanner(System.in);
-        String userInput;
-
-        System.out.println("Please input a paragraph or a lengthy text");
-        userInput = stdin.nextLine();
 
         stdin.close();
+    }
+
+    public static String getLine(Scanner stdin) {
+
+        String userInput;
+
+        System.out.println("Please input a paragraph or a lengthy text: ");
+        userInput = stdin.nextLine();
+
         return userInput;
     }
 
@@ -73,31 +86,79 @@ public class PA1 {
         return wordCount;
     }
 
-    public static char mostCommonCharacter(String userString) {
-        char mostCommonCharacter = 2;
-        char[] userArray = userString.toCharArray();
-        Arrays.sort(userArray);
-        System.out.println(Arrays.toString(userArray));
+    public static HashMap<Character, Integer> makeHashMap(String userString) {
+        HashMap<Character, Integer> userHashMap = new HashMap<Character, Integer>();
 
-        char[] letters = new char[0];
-        int[] frequency = new int[0];
+        String userStringWithoutSpaces = userString.replaceAll(" ", "");
+        char[] userArray = userStringWithoutSpaces.toCharArray();
 
-        System.out.println(Arrays.toString(letters));
-        System.out.println(Arrays.toString(frequency));
+        for (char c : userArray) {
+            if (userHashMap.containsKey(c)) {
+                userHashMap.put(c, userHashMap.get(c) + 1);
+            }
+            else {
+                userHashMap.put(c, 1);
+            }
+        }
+        return userHashMap;
+    }
 
-        for (char letter : userArray) {
-            for (int i = 0; i < letters.length; i++ ){
-                if (letters[i] == letter) {
-                    frequency[i] = frequency[i] + 1;
-                }
-                else {
+    public static char mostCommonCharacter(HashMap<Character, Integer> userHashMap) {
+        int mostCommonValue = Collections.max(userHashMap.values());
+        System.out.println(mostCommonValue);
+        for (Map.Entry<Character, Integer> entry: userHashMap.entrySet()) {
+            if (entry.getValue() == mostCommonValue) {
+                System.out.println(entry.getKey());
+                return entry.getKey();
+            }
+        }
+        throw new Error("No Character found");
+    }
 
+    public static int characterFrequency(HashMap<Character, Integer> userHashMap, Scanner stdin) {
+        System.out.println("Please type character to check its frequency: ");
+        String userInputLetter = stdin.nextLine();
+
+        if (userInputLetter.length() != 1) {
+            throw new InputMismatchException("Please only type a single character");
+        }
+        String userInputLetterUpper = userInputLetter.toUpperCase();
+        char userInputChar = userInputLetterUpper.charAt(0);
+
+        for (Map.Entry<Character, Integer> entry: userHashMap.entrySet()) {
+            if (entry.getKey() == userInputChar) {
+                System.out.println(entry.getValue());
+                return entry.getValue();
+            }
+        }
+        throw new Error("No Value found");
+    }
+
+    public static int wordFrequency(String userString, Scanner stdin){
+        System.out.println("Please type a word to check its frequency: ");
+        String userWord = stdin.nextLine();
+        String[] userArray = userString.split(" ");
+        int frequency = 0;
+        for (String word : userArray) {
+            if (word.equalsIgnoreCase(userWord)) {
+                frequency = frequency + 1;
+            }
+        }
+        System.out.println(frequency);
+        return frequency;
+    }
+
+    public static int numberOfUniqueWords(String userString) {
+        int uniqueWords = 0;
+        String[] userArray = userString.split(" ");
+        for (String words : userArray) {
+            for (int i = 0; i < userArray.length - 1; i++) {
+                if (!words.equalsIgnoreCase(userArray[i])) {
+                    uniqueWords = uniqueWords + 1;
                 }
             }
-            System.out.println(letter);
-
         }
-
-        return mostCommonCharacter;
+        System.out.println(uniqueWords);
+        return uniqueWords;
     }
 }
