@@ -23,6 +23,9 @@
  */
 
 import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -34,15 +37,13 @@ public class PA1 {
         String userString = getLine();
 
         // Character Count
-        int userStringLength = userString.length();
-        System.out.println("Character Count: " + userStringLength);
+        //characterCount(userString);
 
         // Word count
-        String[] userArray = userString.split(" ");
-        int wordCount = userArray.length;
-        System.out.println("Word Count: " + wordCount);
+        //wordCount(userString);
 
         // Most Common Character
+        mostCommonCharacter(userString);
         // Character Frequency
         // Word Frequency
         // Unique Words
@@ -70,5 +71,33 @@ public class PA1 {
         int wordCount = userArray.length;
         System.out.println("Word Count: " + wordCount);
         return wordCount;
+    }
+
+    public static char mostCommonCharacter(String userString) {
+        char mostCommonCharacter = 2;
+        char[] userArray = userString.toCharArray();
+        Arrays.sort(userArray);
+        System.out.println(Arrays.toString(userArray));
+
+        char[] letters = new char[0];
+        int[] frequency = new int[0];
+
+        System.out.println(Arrays.toString(letters));
+        System.out.println(Arrays.toString(frequency));
+
+        for (char letter : userArray) {
+            for (int i = 0; i < letters.length; i++ ){
+                if (letters[i] == letter) {
+                    frequency[i] = frequency[i] + 1;
+                }
+                else {
+
+                }
+            }
+            System.out.println(letter);
+
+        }
+
+        return mostCommonCharacter;
     }
 }
