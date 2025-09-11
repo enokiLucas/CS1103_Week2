@@ -48,7 +48,7 @@ public class PA1 {
         //mostCommonCharacter(userHashMap);
 
         // Character Frequency
-        //String userStringUpper = userString.toUpperCase();
+        String userStringUpper = userString.toUpperCase();
         //HashMap<Character, Integer> userHashMapUpper = makeHashMap(userStringUpper);
         //characterFrequency(userHashMapUpper, stdin);
 
@@ -57,7 +57,7 @@ public class PA1 {
 
 
         // Unique Words
-        numberOfUniqueWords(userString);
+        numberOfUniqueWords(userStringUpper);
 
 
         stdin.close();
@@ -148,17 +148,21 @@ public class PA1 {
         return frequency;
     }
 
-    public static int numberOfUniqueWords(String userString) {
-        int uniqueWords = 0;
-        String[] userArray = userString.split(" ");
-        for (String words : userArray) {
-            for (int i = 0; i < userArray.length - 1; i++) {
-                if (!words.equalsIgnoreCase(userArray[i])) {
-                    uniqueWords = uniqueWords + 1;
-                }
+    public static int numberOfUniqueWords(String userStringUpper) {
+        HashMap<String, Integer> userHashMap = new HashMap<String, Integer>();
+        String[] userArray = userStringUpper.split(" ");
+        for (String word : userArray) {
+            if (userHashMap.containsKey(word)) {
+                userHashMap.put(word, userHashMap.get(word) + 1);
+            }
+            else {
+                userHashMap.put(word, 1);
             }
         }
-        System.out.println(uniqueWords);
+
+        int uniqueWords = userHashMap.size();
+        System.out.println(userHashMap.size());
+        System.out.println(userHashMap);
         return uniqueWords;
     }
 }
