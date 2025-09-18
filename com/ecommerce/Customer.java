@@ -4,7 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 import com.ecommerce.orders.Order;
 
+/**
+ * Class from the package com.ecommerce.
+ * Has the relevant attributes for a customer
+ * and the methods for its function.
+ *
+ * @author Lucas Enoki Pereira da Silva
+ */
 public class Customer {
+    // Instances attributes
     private int customerID;
     private String name;
     private HashMap<Integer, Integer> shoppingCart; // Map in which the keys will be the ProductID and the value will be the number of orders.
@@ -12,7 +20,9 @@ public class Customer {
     // Class variable to track all the instances.
     private static HashMap<Integer, Object> idMap = new HashMap<>();
 
+    // Class constructor
     public Customer(String newName) {
+        // Provides a new Id for each new instance that is plus one from the previous one.
         int newID = idMap.size();
         idMap.put(newID, this);
 
@@ -21,6 +31,7 @@ public class Customer {
         this.shoppingCart = new HashMap<>();
     }
 
+    // Getter and setter methods
     public int getID() {
         return this.customerID;
     }
@@ -33,6 +44,14 @@ public class Customer {
         return this.shoppingCart;
     }
 
+    /**
+     * Will add to the this.shoppingCart HashMap
+     * the productID and the quantity the user wishes to buy
+     * Will test if the arguments are valid.
+     *
+     * @param productID the id of the product the user wants to buy
+     * @param quantity how much the user wants to buy
+     */
     public void addToCart(int productID, int quantity) {
         HashMap<Integer, Product> prodMap = Product.getIdMap();
         Product prod = prodMap.get(productID);
@@ -48,6 +67,13 @@ public class Customer {
         }
     }
 
+    /**
+     * Remove a item previously added in the cart.
+     * Will test if the arguments are valid.
+     *
+     * @param productID the id of the product the user wants to remove
+     * @param quantity how much the user wants to remove
+     */
     public void removeFromCart(int productID, int quantity) { // quantity to be removed, NOT the final value.
         int oldValue = this.shoppingCart.get(productID);
         if (quantity > oldValue) {
@@ -59,6 +85,12 @@ public class Customer {
         }
     }
 
+    /**
+     * Calculates the total amount of
+     * all the products in the cart
+     *
+     * @return the sum of all prices in the cart
+     */
     public double getTotal(){
         double total = 0;
         for (Map.Entry<Integer, Integer> entry: this.shoppingCart.entrySet()) {
@@ -71,6 +103,13 @@ public class Customer {
         return total;
     }
 
+    /**
+     * Issues an order based on the products in the cart
+     * Updates the stock based on how much the user intends to buy
+     * Calls the constructor of the Class Order
+     *
+     * @return the order created
+     */
     public Order makeOrder() {
         HashMap<Integer, Product> prodMap = Product.getIdMap();
 
