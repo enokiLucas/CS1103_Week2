@@ -2,6 +2,7 @@ package com.ecommerce;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Product {
     private int productID;
@@ -9,7 +10,8 @@ public class Product {
     private double price;
     private int stock; // number of units available
 
-    private static HashMap<Integer, Object> idMap;
+    // Class variable to track all the instances.
+    private static HashMap<Integer, Product> idMap = new HashMap<>();
 
     public Product(String newName, double newPrice, int newStock) {
         int newID = idMap.size();
@@ -49,16 +51,26 @@ public class Product {
         this.stock = newStock;
     }
 
-    public static double getPriceByID(int id){
-        idMap.forEach( (k ,v) -> {
-            if (k == id) {
-                return v.getPrice();
-            }
-        });
+    public static HashMap getIdMap() {
+        return idMap;
     }
 
-    public static void displayTest() {
-        System.out.println("Testing packages");
+    public static double getPriceByID(int id) {
+        Product prod = idMap.get(id);
+        return prod.getPrice();
     }
 
+    public static String getNameByID(int id) {
+        Product prod = idMap.get(id);
+        return prod.getName();
+    }
+
+    public static void showCatalog() {
+        System.out.println("Catalog");
+        System.out.println(" ID |   Name   | Units available | Price");
+
+        for (Map.Entry<Integer, Product> entry: idMap.entrySet()) {
+            System.out.println(entry.getValue().getID() + "   |" + entry.getValue().getName() + "  |  " + entry.getValue().getStock() + "        | " + entry.getValue().getPrice() + " |");
+        }
+    }
 }
