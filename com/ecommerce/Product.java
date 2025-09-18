@@ -4,7 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class from the package com.ecommerce.
+ * Has the relevant attributes for a product
+ * and the methods for its function.
+ *
+ * @author Lucas Enoki Pereira da Silva
+ */
 public class Product {
+    // Instances variables
     private int productID;
     private String name;
     private double price;
@@ -13,7 +21,9 @@ public class Product {
     // Class variable to track all the instances.
     private static HashMap<Integer, Product> idMap = new HashMap<>();
 
+    // Class constructor
     public Product(String newName, double newPrice, int newStock) {
+        // Provides a new Id for each new instance that is plus one from the previous one.
         int newID = idMap.size();
         idMap.put(newID, this);
 
@@ -23,6 +33,7 @@ public class Product {
         this.stock = newStock;
     }
 
+    // Getter and Setter functions for each instance.
     public int getID() {
         return this.productID;
     }
@@ -55,16 +66,35 @@ public class Product {
         return idMap;
     }
 
+    /**
+     * Class method that will get the attribute 'price'
+     * from an instance, using the instance id as an argument.
+     *
+     * @param id the id of an instance of this Class
+     * @return the price attribute from the instance
+     */
     public static double getPriceByID(int id) {
         Product prod = idMap.get(id);
         return prod.getPrice();
     }
 
+    /**
+     * Class method that will get the attribute 'name'
+     * from an instance, using the instance id as an argument.
+     *
+     * @param id the id of an instance of this Class
+     * @return the name attribute from the instance
+     */
     public static String getNameByID(int id) {
         Product prod = idMap.get(id);
         return prod.getName();
     }
 
+    /**
+     * Class method that creates a catalog for the user
+     * containing all the attributes of each variable in a
+     * easy way for the user.
+     */
     public static void showCatalog() {
         System.out.println("Catalog");
         System.out.println(" ID |   Name   | Units available | Price");
