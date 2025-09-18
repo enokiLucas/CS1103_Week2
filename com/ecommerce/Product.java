@@ -8,6 +8,7 @@ import java.util.Map;
  * Class from the package com.ecommerce.
  * Has the relevant attributes for a product
  * and the methods for its function.
+ * Represents a product in an E-commerce application
  *
  * @author Lucas Enoki Pereira da Silva
  */
@@ -21,7 +22,13 @@ public class Product {
     // Class variable to track all the instances.
     private static HashMap<Integer, Product> idMap = new HashMap<>();
 
-    // Class constructor
+    /**
+     * Class constructor
+     *
+     * @param newName the name of the product
+     * @param newPrice the price of the product
+     * @param newStock how much units are available
+     */
     public Product(String newName, double newPrice, int newStock) {
         // Provides a new Id for each new instance that is plus one from the previous one.
         int newID = idMap.size();
@@ -33,35 +40,58 @@ public class Product {
         this.stock = newStock;
     }
 
-    // Getter and Setter functions for each instance.
+    // Getter and Setter methods for each instance.
+    /**
+     * Getter method for productID
+     *
+     * @return the id for the product
+     */
     public int getID() {
         return this.productID;
     }
 
+    /**
+     * Getter method for name
+     *
+     * @return the name for the product
+     */
     public String getName() {
         return this.name;
     }
 
-    public void setName(String newName) {
-        this.name = newName;
-    }
-
+    /**
+     * Getter method for price
+     *
+     * @return the price for the product
+     */
     public double getPrice() {
         return this.price;
     }
 
-    public void setPrice(double newPrice) {
-        this.price = newPrice;
-    }
-
+    /**
+     * Getter method for stock
+     *
+     * @return the stock for the product
+     */
     public int getStock() {
         return this.stock;
     }
 
+    /**
+     * Setter method for stock
+     *
+     * @param newStock the new amount available
+     */
     public void setStock(int newStock) {
         this.stock = newStock;
     }
 
+    /**
+     * Class method that returns the HashMap
+     * that keeps track of all the instances generated
+     *
+     * @return the HashMap that tracks the instances
+     */
     public static HashMap getIdMap() {
         return idMap;
     }

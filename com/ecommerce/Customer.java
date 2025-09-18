@@ -8,6 +8,7 @@ import com.ecommerce.orders.Order;
  * Class from the package com.ecommerce.
  * Has the relevant attributes for a customer
  * and the methods for its function.
+ * Represents a customer in an E-commerce application
  *
  * @author Lucas Enoki Pereira da Silva
  */
@@ -20,7 +21,11 @@ public class Customer {
     // Class variable to track all the instances.
     private static HashMap<Integer, Object> idMap = new HashMap<>();
 
-    // Class constructor
+    /**
+     * Class constructor
+     *
+     * @param newName the name of the customer
+     */
     public Customer(String newName) {
         // Provides a new Id for each new instance that is plus one from the previous one.
         int newID = idMap.size();
@@ -32,14 +37,29 @@ public class Customer {
     }
 
     // Getter and setter methods
+    /**
+     * Getter method for customerID
+     *
+     * @return the id of the customer
+     */
     public int getID() {
         return this.customerID;
     }
 
+    /**
+     * Getter method for name
+     *
+     * @return the name of the customer
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter method for shoppingCart
+     *
+     * @return the cart of the customer
+     */
     public HashMap getShoppingCart() {
         return this.shoppingCart;
     }
